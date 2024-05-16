@@ -28,11 +28,9 @@ public class SceneTransition : MonoBehaviour
 
     IEnumerator LoadGame()
     {
-        image.enabled = true;
         transitionAnim.SetTrigger("End");
         yield return new WaitForSeconds(1);
-        SceneManager.LoadSceneAsync("SampleScene");
+        SceneManager.LoadSceneAsync("Level1");
         transitionAnim.SetTrigger("Start");
-        image.enabled = false;
     }
 }

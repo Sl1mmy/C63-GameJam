@@ -5,17 +5,26 @@ using UnityEngine;
 public class EnemyLineOfSight : MonoBehaviour
 {
     public Transform player;
-    private Animator animator;
     public float raycastDistance = 10f;
     public LayerMask playerLayer;
     [Space(5)]
     public float chaseSpeed = 5f;
+    public float jumpForce = 10f;
+    public float groundCheckDistance = 0.1f;
 
     private bool isChasing = false;
+    private bool chase = false;
+    private bool isFacingRight = true;
+
+    private Vector3 horizontal;
+
+    private Rigidbody2D rb;
+    private Animator animator;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -31,24 +40,36 @@ public class EnemyLineOfSight : MonoBehaviour
 
         if (isChasing && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
+            chase = true;
+        }
+
+        Flip();
+    }
+
+    private void FixedUpdate()
+    {
+        if (chase)
+        {
+            animator.SetFloat("SpeedX", Mathf.Abs(horizontal.x));
             ChasePlayer();
         }
     }
 
     private bool HasLineOfSight()
     {
+        Vector3 fixedPos = new Vector3(transform.position.x, transform.position.y - 3f, transform.position.z);
         // Create a raycast from the enemy towards the player
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, (player.position - transform.position).normalized, raycastDistance, playerLayer);
+        RaycastHit2D hit = Physics2D.Raycast(fixedPos, (player.position - fixedPos).normalized, raycastDistance, playerLayer);
 
         // Check if the raycast hits the player
         if (hit.collider != null && hit.collider.gameObject.layer == player.gameObject.layer)
         {
-            Debug.DrawLine(transform.position, hit.point, Color.red);
+            Debug.DrawLine(fixedPos, hit.point, Color.red);
             return true;
         }
         else
         {
-            Debug.DrawLine(transform.position, transform.position + (player.position - transform.position).normalized * raycastDistance, Color.green);
+            Debug.DrawLine(fixedPos, fixedPos + (player.position - fixedPos).normalized * raycastDistance, Color.green);
             return false;
         }
     }
@@ -56,9 +77,33 @@ public class EnemyLineOfSight : MonoBehaviour
     private void ChasePlayer()
     {
         // Calculate direction to move towards the player
-        Vector3 direction = (player.position - transform.position).normalized;
+        horizontal = new Vector3(player.position.x - transform.position.x, 0f, 0f).normalized;
+
+        // Check the distance between the enemy and the player
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        // Increase chase speed if the distance exceeds a certain threshold
+        if (distanceToPlayer > 12f) // Adjust this threshold value as needed
+        {
+            chaseSpeed = 20f; // Set the increased chase speed
+        }
+        else
+        {
+            chaseSpeed = 14f; // Set the default chase speed
+        }
 
         // Move towards the player
-        transform.Translate(direction * chaseSpeed * Time.deltaTime);
+        rb.velocity = new Vector2(horizontal.x * chaseSpeed, rb.velocity.y);
+    }
+
+    private void Flip()
+    {
+        if (isFacingRight && horizontal.x < 0f || !isFacingRight && horizontal.x > 0f)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
     }
 }
