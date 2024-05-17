@@ -1,19 +1,21 @@
 using System.Collections;
 using UnityEngine;
 
-public class Coroutine2 : MonoBehaviour
+public class CoroutineEnd1 : MonoBehaviour
 {
     public float speed = 5f; // Vitesse de déplacement du joueur
     public float resetPosX = -22f; // Position de réinitialisation sur l'axe X
+    private int nbrSaut = 0;
 
     private bool isRunning = true;
     private Rigidbody2D rb;
     private Animator animator;
-    public float jumpingPower = 16f;
+    public float jumpingPower = 45f;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
         StartCoroutine(Run());
     }
 
@@ -26,9 +28,7 @@ public class Coroutine2 : MonoBehaviour
     {
         while (isRunning)
         {
-            // Déplacer le joueur vers la droite
             transform.Translate(Vector2.right * speed * Time.deltaTime);
-            animator.SetBool("Jump", false);
             animator.SetFloat("SpeedX", speed);
 
             // Vérifier si le joueur est encore à l'écran
@@ -37,14 +37,31 @@ public class Coroutine2 : MonoBehaviour
                 gameObject.SetActive(false);
             }
 
+            // Vérifier si le joueur est à la position de saut
+            if (transform.position.x > -2.80f)
+            {
+                StartCoroutine(Jump());
+            }
             yield return null;
         }
     }
 
-    private void Jump()
+
+
+    private IEnumerator Jump()
     {
-        // Activer l'animation de saut
-        rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-        animator.SetBool("Jump", true);
+        if (nbrSaut < 1)
+        {
+            Debug.Log("Le joueur saute !");
+            rb.AddForce(Vector2.up * jumpingPower, ForceMode2D.Impulse);
+
+            animator.SetBool("Jump", true);
+            nbrSaut += 1;
+
+            // Attendre un court instant avant de désactiver l'animation de saut
+            yield return new WaitForSeconds(1.5f);
+            animator.SetBool("Jump", false);
+        }
     }
+
 }

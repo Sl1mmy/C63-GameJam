@@ -9,7 +9,6 @@ public class vfxhover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private GameObject currentVFXInstance;
     public float vfxLifetime = 1.0f;
 
-    // This method is called when the pointer enters the button's area
     public void OnPointerEnter(PointerEventData evenData)
     {
         if (vfxPrefab != null)
@@ -17,12 +16,10 @@ public class vfxhover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             Vector3 position = new Vector3(-0.389999986f, -1.01999998f, 0);
             Vector3 rotation = new Vector3(71.78f, 0, 0);
 
-            // Instancie le VFX à la position du clic
             currentVFXInstance = Instantiate(vfxPrefab, position, Quaternion.Euler(rotation));
         }
     }
 
-    // This method is called when the pointer exits the button's area
     public void OnPointerExit(PointerEventData evenData)
     {
         if (vfxPrefab != null)
@@ -33,8 +30,28 @@ public class vfxhover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private IEnumerator DestroyVFX(GameObject vfxInstance, float delay)
     {
+        ParticleSystem particleSystem = vfxInstance.GetComponent<ParticleSystem>();
+
+        if (particleSystem != null)
+        {
+            var mainModule = particleSystem.main;
+            float startAlpha = mainModule.startColor.color.a;
+            float currentAlpha = startAlpha;
+            float fadeDuration = 1f;
+            float timeElapsed = 0f;
+
+            while (currentAlpha > 0)
+            {
+                timeElapsed += Time.deltaTime;
+                currentAlpha = Mathf.Lerp(startAlpha, 0, timeElapsed / fadeDuration);
+                mainModule.startColor = new Color(mainModule.startColor.color.r, mainModule.startColor.color.g, mainModule.startColor.color.b, currentAlpha);
+                yield return null;
+            }
+        }
+
         yield return new WaitForSeconds(delay);
         Destroy(vfxInstance);
     }
+
 }
 

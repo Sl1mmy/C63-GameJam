@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Coroutine : MonoBehaviour
+public class CoroutineMenu1 : MonoBehaviour
 {
     public float speed = 5f; // Vitesse de déplacement du joueur
     public float resetPosX = -22f; // Position de réinitialisation sur l'axe X
