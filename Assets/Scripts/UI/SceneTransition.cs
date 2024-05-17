@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,27 +11,21 @@ public class SceneTransition : MonoBehaviour
     [SerializeField] Animator transitionAnim;
     [SerializeField] Image image;
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
     public void StartGame()
     {
-        StartCoroutine(LoadGame());
+        StartCoroutine(LoadGame("Level1"));
     }
 
-    IEnumerator LoadGame()
+    public void StartEndScene()
     {
-        transitionAnim.SetTrigger("End");
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadSceneAsync("Level1");
-        transitionAnim.SetTrigger("Start");
+        StartCoroutine(LoadGame("End"));
+
+    }
+
+    IEnumerator LoadGame(string scene)
+    {
+        transitionAnim.SetBool("Fade", true);
+        yield return new WaitUntil(() => image.color.a == 1);
+        SceneManager.LoadScene(scene);
     }
 }

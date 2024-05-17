@@ -12,6 +12,7 @@ public class EnemyLineOfSight : MonoBehaviour
     public float jumpForce = 10f;
     public float groundCheckDistance = 0.1f;
 
+    private float newChaseSpeed;
     private bool isChasing = false;
     private bool chase = false;
     private bool isFacingRight = true;
@@ -85,15 +86,15 @@ public class EnemyLineOfSight : MonoBehaviour
         // Increase chase speed if the distance exceeds a certain threshold
         if (distanceToPlayer > 12f) // Adjust this threshold value as needed
         {
-            chaseSpeed = 20f; // Set the increased chase speed
+            newChaseSpeed = 20f; // Set the increased chase speed
         }
         else
         {
-            chaseSpeed = 14f; // Set the default chase speed
+            newChaseSpeed = chaseSpeed; // Set the default chase speed
         }
 
         // Move towards the player
-        rb.velocity = new Vector2(horizontal.x * chaseSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(horizontal.x * newChaseSpeed, rb.velocity.y);
     }
 
     private void Flip()
