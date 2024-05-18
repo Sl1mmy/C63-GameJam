@@ -672,6 +672,10 @@ PrefabInstance:
       value: Coin (8)
       objectReference: {fileID: 0}
     - target: {fileID: 7997573243328216283, guid: 9548eaf9ac0d89046a32e9f02a1a9d72, type: 3}
+      propertyPath: vfxPrefab
+      value: 
+      objectReference: {fileID: 9171176531504662540, guid: d56477c5542f7ad4cb417503aa073f36, type: 3}
+    - target: {fileID: 7997573243328216283, guid: 9548eaf9ac0d89046a32e9f02a1a9d72, type: 3}
       propertyPath: coinCounter
       value: 
       objectReference: {fileID: 824867559}
@@ -872,6 +876,10 @@ PrefabInstance:
       value: Coin (1)
       objectReference: {fileID: 0}
     - target: {fileID: 7997573243328216283, guid: 9548eaf9ac0d89046a32e9f02a1a9d72, type: 3}
+      propertyPath: vfxPrefab
+      value: 
+      objectReference: {fileID: 9171176531504662540, guid: d56477c5542f7ad4cb417503aa073f36, type: 3}
+    - target: {fileID: 7997573243328216283, guid: 9548eaf9ac0d89046a32e9f02a1a9d72, type: 3}
       propertyPath: coinCounter
       value: 
       objectReference: {fileID: 824867559}
@@ -961,6 +969,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coin (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7997573243328216283, guid: 9548eaf9ac0d89046a32e9f02a1a9d72, type: 3}
+      propertyPath: vfxPrefab
+      value: 
+      objectReference: {fileID: 9171176531504662540, guid: d56477c5542f7ad4cb417503aa073f36, type: 3}
     - target: {fileID: 7997573243328216283, guid: 9548eaf9ac0d89046a32e9f02a1a9d72, type: 3}
       propertyPath: coinCounter
       value: 
@@ -1262,6 +1274,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coin (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7997573243328216283, guid: 9548eaf9ac0d89046a32e9f02a1a9d72, type: 3}
+      propertyPath: vfxPrefab
+      value: 
+      objectReference: {fileID: 9171176531504662540, guid: d56477c5542f7ad4cb417503aa073f36, type: 3}
     - target: {fileID: 7997573243328216283, guid: 9548eaf9ac0d89046a32e9f02a1a9d72, type: 3}
       propertyPath: coinCounter
       value: 
@@ -1887,6 +1903,10 @@ PrefabInstance:
       value: Coin (7)
       objectReference: {fileID: 0}
     - target: {fileID: 7997573243328216283, guid: 9548eaf9ac0d89046a32e9f02a1a9d72, type: 3}
+      propertyPath: vfxPrefab
+      value: 
+      objectReference: {fileID: 9171176531504662540, guid: d56477c5542f7ad4cb417503aa073f36, type: 3}
+    - target: {fileID: 7997573243328216283, guid: 9548eaf9ac0d89046a32e9f02a1a9d72, type: 3}
       propertyPath: coinCounter
       value: 
       objectReference: {fileID: 824867559}
@@ -1982,6 +2002,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coin (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 7997573243328216283, guid: 9548eaf9ac0d89046a32e9f02a1a9d72, type: 3}
+      propertyPath: vfxPrefab
+      value: 
+      objectReference: {fileID: 9171176531504662540, guid: d56477c5542f7ad4cb417503aa073f36, type: 3}
     - target: {fileID: 7997573243328216283, guid: 9548eaf9ac0d89046a32e9f02a1a9d72, type: 3}
       propertyPath: coinCounter
       value: 
@@ -3602,6 +3626,10 @@ PrefabInstance:
       value: Coin
       objectReference: {fileID: 0}
     - target: {fileID: 7997573243328216283, guid: 9548eaf9ac0d89046a32e9f02a1a9d72, type: 3}
+      propertyPath: vfxPrefab
+      value: 
+      objectReference: {fileID: 9171176531504662540, guid: d56477c5542f7ad4cb417503aa073f36, type: 3}
+    - target: {fileID: 7997573243328216283, guid: 9548eaf9ac0d89046a32e9f02a1a9d72, type: 3}
       propertyPath: coinCounter
       value: 
       objectReference: {fileID: 824867559}
@@ -3666,6 +3694,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coin (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 7997573243328216283, guid: 9548eaf9ac0d89046a32e9f02a1a9d72, type: 3}
+      propertyPath: vfxPrefab
+      value: 
+      objectReference: {fileID: 9171176531504662540, guid: d56477c5542f7ad4cb417503aa073f36, type: 3}
     - target: {fileID: 7997573243328216283, guid: 9548eaf9ac0d89046a32e9f02a1a9d72, type: 3}
       propertyPath: coinCounter
       value: 

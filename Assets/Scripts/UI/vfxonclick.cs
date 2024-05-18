@@ -21,6 +21,8 @@ public class vfxonclick : MonoBehaviour
             // Instancie le VFX à la position du clic
             currentVFXInstance = Instantiate(vfxPrefab, clickPosition, Quaternion.identity);
 
+            Destroy(currentVFXInstance, 2f);
+
             // Démarre la coroutine pour détruire le VFX après un certain délai
             StartCoroutine(DestroyVFX(currentVFXInstance, vfxLifetime));
         }
