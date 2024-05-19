@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4551464270121574300, guid: 829ff89edeeceb8458f870339e64aac7, type: 3}
       propertyPath: m_Name
-      value: Obstacle2 Variant
+      value: Obstacle2
       objectReference: {fileID: 0}
     - target: {fileID: 4551464270121574300, guid: 829ff89edeeceb8458f870339e64aac7, type: 3}
       propertyPath: m_Layer

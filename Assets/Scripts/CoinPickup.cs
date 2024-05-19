@@ -12,7 +12,7 @@ public class CoinPickup : MonoBehaviour
 
     private void Start()
     {
-        Vector3 rotation = new Vector3(-71.78f, 0, 0);
+        Vector3 rotation = new Vector3(-180f, 0, 0);
         vfxInstance = Instantiate(vfxPrefab, transform.position, Quaternion.Euler(rotation));
     }
 

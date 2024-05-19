@@ -10,9 +10,19 @@ public class EnemyCollision : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerMovement.enabled = false;
-            enemyMovement.enabled = false;
+            if (playerMovement != null) { playerMovement.enabled = false; }
+            if (enemyMovement != null) { enemyMovement.enabled = false; }
 
+            Invoke("ReloadScene", 0f);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (playerMovement != null) { playerMovement.enabled = false; }
+            if (enemyMovement != null) {  enemyMovement.enabled = false; }
             Invoke("ReloadScene", 0f);
         }
     }
@@ -20,8 +30,8 @@ public class EnemyCollision : MonoBehaviour
     private void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        playerMovement.enabled = true;
-        enemyMovement.enabled = true;
+        if (playerMovement != null) { playerMovement.enabled = true; }
+        if (enemyMovement != null) { enemyMovement.enabled = true; }
     }
 }
 

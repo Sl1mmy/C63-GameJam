@@ -8,10 +8,15 @@ public class EnemyLineOfSight : MonoBehaviour
     public Transform player;
     public float raycastDistance = 10f;
     public LayerMask playerLayer;
-    [Space(5)]
+    [Space(10)]
     public float chaseSpeed = 5f;
     public float jumpForce = 10f;
+    [Space(5)]
+    public float distanceBeforeCatchup = 12f;
+    public float catchupSpeed = 20f;
+    [Space(10)]
     public float groundCheckDistance = 0.1f;
+    public bool isFly = false;
 
     private float newChaseSpeed;
     private bool isChasing = false;
@@ -35,12 +40,16 @@ public class EnemyLineOfSight : MonoBehaviour
         if (HasLineOfSight())
         {
             // Play animation when the player is detected
-            animator.SetBool("Awake", true);
+            if (!isFly) { animator.SetBool("Awake", true); }
             raycastDistance = 10000f;
             isChasing = true;
         }
 
         if (isChasing && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        {
+            chase = true;
+        }
+        if (isChasing && isFly)
         {
             chase = true;
         }
@@ -52,7 +61,7 @@ public class EnemyLineOfSight : MonoBehaviour
     {
         if (chase)
         {
-            animator.SetFloat("SpeedX", Mathf.Abs(horizontal.x));
+            if (!isFly) { animator.SetFloat("SpeedX", Mathf.Abs(horizontal.x)); }
             ChasePlayer();
         }
     }
@@ -78,34 +87,47 @@ public class EnemyLineOfSight : MonoBehaviour
 
     private void ChasePlayer()
     {
-        // Calculate direction to move towards the player
-        horizontal = new Vector3(player.position.x - transform.position.x, 0f, 0f).normalized;
-
-        // Check the distance between the enemy and the player
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
         // Increase chase speed if the distance exceeds a certain threshold
-        if (distanceToPlayer > 12f) // Adjust this threshold value as needed
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        if (distanceToPlayer > distanceBeforeCatchup) // Adjust this threshold value as needed
         {
-            newChaseSpeed = 20f; // Set the increased chase speed
+            newChaseSpeed = catchupSpeed; // Set the increased chase speed
         }
         else
         {
             newChaseSpeed = chaseSpeed; // Set the default chase speed
         }
 
-        // Move towards the player
-        rb.velocity = new Vector2(horizontal.x * newChaseSpeed, rb.velocity.y);
+        if (isFly)
+        {
+            horizontal = (player.position - transform.position).normalized;
+            rb.velocity = new Vector2(horizontal.x * newChaseSpeed, horizontal.y * newChaseSpeed);
+        }
+        else
+        {
+            horizontal = new Vector3(player.position.x - transform.position.x, 0f, 0f).normalized;
+            rb.velocity = new Vector2(horizontal.x * newChaseSpeed, rb.velocity.y);
+        }
     }
 
     private void Flip()
     {
-        if (isFacingRight && horizontal.x < 0f || !isFacingRight && horizontal.x > 0f)
+        if (isFly)
         {
-            isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
+            Vector3 direction = player.position - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
+        }
+        else
+        {
+            if (isFacingRight && horizontal.x < 0f || !isFacingRight && horizontal.x > 0f)
+            {
+                isFacingRight = !isFacingRight;
+                Vector3 localScale = transform.localScale;
+                localScale.x *= -1f;
+                transform.localScale = localScale;
+            }
         }
     }
 }
