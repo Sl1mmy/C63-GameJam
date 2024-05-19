@@ -8,7 +8,7 @@ public class CoinCounter : MonoBehaviour
     // Reference to the text displaying the coin count
     public TextMeshProUGUI coinCountText;
 
-    private int coinCount = 0;
+    public int coinCount = 0;
 
     private void Start()
     {
@@ -25,6 +25,6 @@ public class CoinCounter : MonoBehaviour
     // Update the UI with the current coin count
     private void UpdateCoinCountUI()
     {
-        coinCountText.text = "Coins: " + coinCount.ToString();
+        if (coinCountText != null) { coinCountText.text = "Coins: " + coinCount.ToString(); }
     }
 }

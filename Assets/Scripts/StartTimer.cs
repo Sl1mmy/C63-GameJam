@@ -8,7 +8,7 @@ public class StartTimer : MonoBehaviour
     public Canvas uiCanvas; // Reference to the UI Canvas you want to activate
     public TextMeshProUGUI stopwatchText; // Reference to the Text element where you want to display the stopwatch
 
-    private float elapsedTime = 0f; // Elapsed time for the stopwatch
+    public float elapsedTime = 0f; // Elapsed time for the stopwatch
     private bool stopwatchRunning = false; // Flag to track if the stopwatch is running
 
     private void Start()
