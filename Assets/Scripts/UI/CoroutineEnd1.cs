@@ -28,16 +28,16 @@ public class CoroutineEnd1 : MonoBehaviour
     {
         while (isRunning)
         {
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
+            //transform.Translate(Vector2.right * speed * Time.deltaTime);
+            rb.velocity = new Vector2(1 * speed, rb.velocity.y);
             animator.SetFloat("SpeedX", speed);
 
-            // Vérifier si le joueur est encore à l'écran
+
             if (transform.position.x > 24f)
             {
                 gameObject.SetActive(false);
             }
 
-            // Vérifier si le joueur est à la position de saut
             if (transform.position.x > -2.80f)
             {
                 StartCoroutine(Jump());
@@ -52,13 +52,13 @@ public class CoroutineEnd1 : MonoBehaviour
     {
         if (nbrSaut < 1)
         {
-            Debug.Log("Le joueur saute !");
-            rb.AddForce(Vector2.up * jumpingPower, ForceMode2D.Impulse);
+            Debug.Log("Le joueur saute ! " + jumpingPower);
+            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            //rb.AddForce(Vector2.up * jumpingPower, ForceMode2D.Impulse);
 
             animator.SetBool("Jump", true);
             nbrSaut += 1;
 
-            // Attendre un court instant avant de désactiver l'animation de saut
             yield return new WaitForSeconds(1.5f);
             animator.SetBool("Jump", false);
         }
