@@ -59,7 +59,7 @@ public class CoroutineEnd1 : MonoBehaviour
             animator.SetBool("Jump", true);
             nbrSaut += 1;
 
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(0.85f);
             animator.SetBool("Jump", false);
         }
     }
